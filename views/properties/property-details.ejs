@@ -23,8 +23,8 @@
           <p class="card-text">
             <strong>Ownership:</strong>
 
-            <% if (property.Owner) { %> Ownership has been verified. <% } else {
-            %> Ownership not verified yet. <% } %>
+            <% if (property.isOwner) { %> Ownership has been verified. <% } else
+            { %> Ownership not verified yet. <% } %>
           </p>
 
           <!-- Add more property details as needed -->

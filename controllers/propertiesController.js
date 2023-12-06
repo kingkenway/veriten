@@ -85,7 +85,7 @@ const PropertiesController = {
                   submittedBy: req.session.user._id,
                 });
                 await newProperty.save();
-                res.redirect("/properties");
+                res.redirect("/");
               }
             })
             .catch((error) => {
