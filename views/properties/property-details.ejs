@@ -1,0 +1,43 @@
+<!-- views/properties/property-details.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4"><%= property.title %></h2>
+
+          <img
+            src="<%= property.image %>"
+            class="img-fluid mb-3"
+            alt="Property Image"
+          />
+
+          <p class="card-text"><%= property.description %></p>
+
+          <p class="card-text">
+            <strong>Price:</strong> NGN <%= property.price %>
+          </p>
+
+          <p class="card-text">
+            <strong>Ownership:</strong>
+
+            <% if (property.Owner) { %> Ownership has been verified. <% } else {
+            %> Ownership not verified yet. <% } %>
+          </p>
+
+          <!-- Add more property details as needed -->
+
+          <% if (property.isApproved) { %>
+          <p class="text-success">Status: Verified. ✅</p>
+          <% } else { %>
+          <p class="text-success">Status: Not verified.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,32 @@
+<!-- views/admin/admin-dashboard.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Users</h5>
+          <p class="card-text">Total Users: <%= totalUsers %></p>
+          <a href="/admin/manage-users" class="btn btn-primary">Manage Users</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Properties</h5>
+          <p class="card-text">Total Properties: <%= totalProperties %></p>
+          <a href="/admin/review-properties" class="btn btn-primary"
+            >Review Properties</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Add more cards for additional analytics -->
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,33 @@
+<!-- views/admin/manage-users.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="text-center mb-4">Manage Users</h2>
+
+      <% if (users.length === 0) { %>
+      <p class="text-center">No users to manage.</p>
+      <% } else { %>
+      <ul class="list-group">
+        <% users.forEach(user => { %>
+        <li class="list-group-item">
+          <h4><%= user.username %></h4>
+          <p><strong>Email:</strong> <%= user.email %></p>
+
+          <!-- Add more user details as needed -->
+
+          <div class="d-flex justify-content-between">
+            <form action="/admin/delete-user/<%= user._id %>" method="POST">
+              <button type="submit" class="btn btn-danger">Delete User</button>
+            </form>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,32 @@
+<!-- views/users/verification-status.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Verification Status</h2>
+
+          <% if (isVerified) { %>
+          <div class="alert alert-success" role="alert">
+            Congratulations! Your verification is complete.
+          </div>
+          <a href="/properties/add" class="btn btn-primary"
+            >Proceed to add property.</a
+          >
+          <% } else { %>
+          <div class="alert alert-warning" role="alert">
+            Your verification is pending. Please wait for approval.
+          </div>
+          <a href="/users/submit-kyc" class="btn btn-primary"
+            >Re-Submit KYC Documents</a
+          >
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

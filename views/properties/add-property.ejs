@@ -1,0 +1,127 @@
+<!-- views/properties/add-property.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Add Property</h2>
+
+          <% if (errorMessage) { %>
+          <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+          <% } %>
+
+          <form action="/properties/add" method="POST">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description:</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                rows="3"
+                required
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                name="price"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Image URL:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="image"
+                name="image"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="houseOwnership"
+                >Does this property belong to you?</label
+              >
+              <select
+                class="form-select mb-3"
+                id="houseOwnership"
+                name="houseOwnership"
+                required
+              >
+                <option value="" disabled selected>Select option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+
+              <div id="dynamicFieldsContainer"></div>
+            </div>
+
+            <!-- Add more fields as needed -->
+
+            <button type="submit" class="btn btn-primary">Add Property</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const houseOwnership = document.getElementById("houseOwnership");
+  const dynamicFieldsContainer = document.getElementById(
+    "dynamicFieldsContainer"
+  );
+
+  houseOwnership.addEventListener("change", function () {
+    // Clear existing dynamic fields
+    dynamicFieldsContainer.innerHTML = "";
+
+    const selectedOption = houseOwnership.value;
+
+    // Create new dynamic fields based on the selected option
+    if (selectedOption === "yes") {
+      createInputField("Meter Number", "meter_number");
+      createInputField("House Address", "address");
+    } else if (selectedOption === "no") {
+    }
+  });
+
+  function createInputField(labelText, inputName) {
+    const formGroup = document.createElement("div");
+    formGroup.classList.add("form-group");
+
+    const label = document.createElement("label");
+    label.setAttribute("for", inputName);
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.classList.add("form-control");
+    input.setAttribute("id", inputName);
+    input.setAttribute("name", inputName);
+
+    formGroup.appendChild(label);
+    formGroup.appendChild(input);
+    dynamicFieldsContainer.appendChild(formGroup);
+  }
+</script>
+<%- include('../partials/footer') %>

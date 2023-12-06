@@ -1,0 +1,104 @@
+<!-- views/home.ejs -->
+<%- include('./partials/header') %>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">Veriten</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if (user) { %>
+
+        <li class="nav-item">
+          <a class="nav-link"
+            >Welcome <%= user %>!
+            <span onclick="location.href='/users/logout'; return false;"
+              >(logout)</span
+            >
+          </a>
+        </li>
+
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link btn btn-dark border text-white" href="/users/login"
+            >Sign In</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link btn btn-dark border text-white"
+            href="/users/register"
+            >Register</a
+          >
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <a
+            class="nav-link btn btn-dark border text-white"
+            href="/properties/add"
+            >+ Add Property</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-centxer mb-4">Welcome to Veriten</h2>
+      <h4 class="text-centexr">
+        Discover, Rent, or Buy Your Perfect Property.
+      </h4>
+      <!-- <br /> -->
+      <hr />
+
+      <p class="text-centerx">
+        Dive into our curated selection of neighborhoods and cities to discover
+        their unique charm and amenities. Your dream home is just a click away.
+        With extensive listings, easy navigation, and expert guidance, we're
+        here to simplify your property journey.
+      </p>
+      <h3 class="text-centxer mb-4">Featured Properties</h3>
+    </div>
+
+    <% if (properties.length === 0) { %>
+    <div class="col-md-12 text-center">
+      <p>No properties available at the moment. Check back later!</p>
+    </div>
+    <% } else { %> <% properties.forEach(property => { %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <img
+          src="<%= property.image %>"
+          class="card-img-top"
+          alt="Property Image"
+        />
+        <div class="card-body">
+          <h5 class="card-title"><%= property.title %></h5>
+          <p class="card-text"><%= property.description %></p>
+          <p class="card-text">
+            <strong>Price:</strong> NGN <%= property.price %>
+          </p>
+          <a href="/properties/<%= property._id %>" class="btn btn-primary"
+            >View Details</a
+          >
+        </div>
+      </div>
+    </div>
+    <% }) %> <% } %>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>

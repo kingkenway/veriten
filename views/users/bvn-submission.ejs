@@ -1,0 +1,48 @@
+<!-- views/users/kyc-submission.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">BVN Verification</h2>
+
+          <% if (errorMessage) { %>
+          <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+          <% } %>
+
+          <form action="/users/submit-bvn" method="POST">
+            <div class="mb-3">
+              <label for="documentNumber" class="form-label">BVN Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="documentNumber"
+                name="documentNumber"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="dob" class="form-label"
+                >Date of Birth (As seen on your BVN record):</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="dob"
+                name="dob"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit KYC</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

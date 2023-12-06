@@ -1,0 +1,154 @@
+<!-- views/users/kyc-submission.ejs -->
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">KYC Submission</h2>
+
+          <% if (errorMessage) { %>
+          <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+          <% } %>
+
+          <form action="/users/submit-kyc" method="POST">
+            <% if (user.userType === "business") { %>
+
+            <p>Provide the following details:</p>
+            <div class="mb-3">
+              <label for="businessName" class="form-label"
+                >Business Name:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="businessName"
+                name="businessName"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="rcNumber" class="form-label">RC Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="rcNumber"
+                name="rcNumber"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="documentImage" class="form-label"
+                >Upload CAC Document:</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="documentImage"
+                name="documentImage"
+                required
+              />
+            </div>
+
+            <input
+              type="hidden"
+              class="form-control"
+              id="documentType"
+              name="documentType"
+              value="lookup"
+              required
+            />
+
+            <button type="submit" class="btn btn-primary">
+              Submit KYB Document
+            </button>
+
+            <% } else { %>
+
+            <div class="container mt-1">
+              <label for="documentType">Pick Identity:</label>
+              <select
+                class="form-select mb-3"
+                id="documentType"
+                name="documentType"
+                required
+              >
+                <option value="" disabled selected>Select Identity Type</option>
+                <option value="nin">NIN</option>
+                <option value="driver_license">Driver's License</option>
+                <option value="passport">Int'l Passport</option>
+              </select>
+
+              <div id="dynamicFieldsContainer"></div>
+
+              <div class="mb-3">
+                <label for="documentImage" class="form-label"
+                  >Upload Document:</label
+                >
+                <input
+                  type="file"
+                  class="form-control"
+                  id="documentImage"
+                  name="documentImage"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit KYC</button>
+            </div>
+            <% } %>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const documentType = document.getElementById("documentType");
+  const dynamicFieldsContainer = document.getElementById(
+    "dynamicFieldsContainer"
+  );
+
+  documentType.addEventListener("change", function () {
+    // Clear existing dynamic fields
+    dynamicFieldsContainer.innerHTML = "";
+
+    const selectedOption = documentType.value;
+
+    // Create new dynamic fields based on the selected option
+    if (selectedOption === "nin") {
+      createInputField("NIN", "nin");
+    } else if (selectedOption === "passport") {
+      createInputField("Passport Number", "passport_number");
+      createInputField("Last Name", "last_name");
+    } else if (selectedOption === "driver_license") {
+      createInputField("License Number", "license_number");
+      createInputField("Date of Birth", "date_of_birth");
+      createInputField("First Name", "first_name");
+      createInputField("Last Name", "last_name");
+    }
+  });
+
+  function createInputField(labelText, inputName) {
+    const formGroup = document.createElement("div");
+    formGroup.classList.add("form-group");
+
+    const label = document.createElement("label");
+    label.setAttribute("for", inputName);
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "text");
+    input.classList.add("form-control");
+    input.setAttribute("id", inputName);
+    input.setAttribute("name", inputName);
+
+    formGroup.appendChild(label);
+    formGroup.appendChild(input);
+    dynamicFieldsContainer.appendChild(formGroup);
+  }
+</script>
+<%- include('../partials/footer') %>
