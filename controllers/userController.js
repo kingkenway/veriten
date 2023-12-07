@@ -64,6 +64,8 @@ const UserController = {
   },
 
   registerUser: async (req, res) => {
+    const errorMessage = req.session.errorMessage;
+
     try {
       const { username, email, password, userType } = req.body;
 
@@ -98,7 +100,11 @@ const UserController = {
       req.session.user = newUser;
 
       // Redirect or respond as needed
-      res.redirect("/users/submit-bvn");
+      // res.redirect("/users/submit-bvn");
+      res.render("users/bvn-submission", {
+        user: req.session.newUser,
+        errorMessage,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error");

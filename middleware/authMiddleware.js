@@ -30,11 +30,9 @@ const isLoggedIn = (req, res, next) => {
 // middlewares/authMiddleware.js
 const isAdmin = (req, res, next) => {
   // Check if the user is logged in
-
   if (req.session.user?._id) {
     // Check if the user is an admin (you need to have a way to determine this, e.g., a userType field in the User model)
     const isAdminUser = req.session.user.isAdmin; // Adjust this based on how you store admin status
-
     if (isAdminUser) {
       // User is an admin, proceed to the next middleware or route handler
       next();
